@@ -1,11 +1,50 @@
 # VoiceNote
 
-녹음 파일을 이 PC 안에서 받아 적고, 누가 말했는지 나누고, 회의록으로 정리하는 Windows 앱의 설치 파일을 올리는 곳이에요.
+녹음을 이 PC 안에서 받아 적고, 누가 말했는지 나누고, 회의록으로 정리하는 Windows 앱이에요. 내 PC 모델을 쓰면 녹음과 글이 PC 밖으로 나가지 않아요.
 
-- [Releases](https://github.com/morulab-taesoo/voicenote-releases/releases)에서 `VoiceNote-Setup-<버전>.exe`를 받아 실행하고 **설치**를 누르면 돼요 (관리자 권한 필요 없음).
-- 받아쓰기(Whisper)와 요약(Gemma·Qwen)은 OpenVINO 로 Intel GPU·NPU·CPU 에서 돌아요. 녹음은 PC 밖으로 나가지 않아요. Claude API 로 요약할 수도 있어요.
-- 모델은 처음 쓸 때 `%LOCALAPPDATA%\VoiceNote\models` 에 한 번 내려받아요 (수 GB).
+- 녹음: 마이크와 PC 소리(Zoom·Meet·영상처럼 스피커로 나오는 소리)를 함께 녹음하면서 바로 받아 적어요. 녹음 파일(갤럭시 녹음 앱의 `.m4a` 등)을 가져와도 돼요.
+- 받아쓰기: Whisper를 OpenVINO로 Intel GPU·NPU·CPU에서 돌려요.
+- 화자 구분: 누가 말했는지 나눠서 `[00:05] 화자 1: …`처럼 붙이고, 실제 이름으로 바꿀 수 있어요.
+- 요약: 회의록·핵심 요약 같은 방식으로 정리해요. 내 PC 모델(Gemma·Qwen)이나 Claude(API 키 필요) 중에서 골라요.
+- 채팅: "할 일만 뽑아 줘"처럼 그 녹음에 대해 물어봐요.
 
-## 모드 런처로 설치·업데이트
+## 설치
 
-[모드 런처](https://github.com/morulab-taesoo/mod-launcher-releases)를 쓰면 로컬 검색·화면 번역·VoiceNote 같은 morulab 프로그램을 한 창에서 설치하고 업데이트할 수 있어요. 새 버전이 나오면 런처에 **업데이트** 버튼이 떠요.
+1. [Releases](https://github.com/morulab-taesoo/voicenote-releases/releases/latest)에서 `VoiceNote-Setup-<버전>.exe`를 받아 실행하고 **설치**를 눌러요. 관리자 권한은 필요 없어요.
+   - 서명되지 않은 프로그램이라 Windows가 "PC 보호" 창을 띄울 수 있어요. **추가 정보 → 실행**을 누르세요.
+2. 설치가 끝나면 앱이 열리고, 시작 메뉴에 **VoiceNote**가 생겨요.
+3. 받아쓰기·요약 모델은 처음 쓸 때 `%LOCALAPPDATA%\VoiceNote\models`에 한 번 내려받아요 (모두 몇 GB).
+
+[모드 런처](https://github.com/morulab-taesoo/mod-launcher-releases)를 쓰면 런처의 **설치** 버튼 하나로 설치할 수 있어요.
+
+- 64비트 Windows에서 돌아요. 처음 켜면 이 PC에서 가장 좋은 장치·모델 조합이 골라져 있어요 (드롭다운에 '추천'). 장치는 이 PC에 있는 것만 보여요.
+
+## 쓰는 법
+
+창은 세 칸이에요. 왼쪽은 날짜별 노트 목록, 가운데는 제목과 요약, 오른쪽은 받아쓰기·화자·채팅 탭이에요.
+
+1. 아래 녹음 줄에서 **마이크**·**PC 소리**를 골라 **● 녹음 시작**(Ctrl+R)을 눌러요. 녹음 파일은 **파일 가져오기**(Ctrl+O)를 누르거나 창에 끌어다 놓아요. 녹음 없이 글만 쓰려면 **새 메모**(Ctrl+N)예요.
+2. 받아쓰기가 끝나면 요약이 바로 만들어져요. 요약 줄에서 정리 방식과 모델을 바꿔 **다시 요약**(Ctrl+Enter)할 수 있어요.
+   - 가운데 요약은 직접 고칠 수 있어요. 문단을 오른쪽 클릭해 '수정 요청'을 달면 그 문단만 모델이 고쳐 써요.
+3. 오른쪽 탭에서 받아 적은 글을 고치고(**받아쓰기**), 화자 이름을 바꾸고(**화자**), 녹음에 대해 물어봐요(**채팅**).
+4. 받아쓰기 줄을 두 번 누르면 그때부터 녹음이 들려요 (Ctrl+Space로 듣기·멈추기).
+5. 받아 적은 글은 `.txt`·`.srt`로, 요약은 `.md`로 내보내요. 노트는 `%LOCALAPPDATA%\VoiceNote\notes`에 저장돼요.
+
+모델·장치·마이크·Claude API 키는 왼쪽 위 **설정**(Ctrl+,)에서 골라요. API 키는 Windows 자격 증명 관리자에 저장돼요.
+
+## 업데이트
+
+VoiceNote는 스스로 새 버전을 확인하지 않아요.
+
+- 모드 런처를 쓰면 새 버전이 나왔을 때 런처에 **업데이트** 버튼이 떠요.
+- 직접 하려면 [Releases](https://github.com/morulab-taesoo/voicenote-releases/releases/latest)에서 새 설치 파일을 받아 실행해요. 노트와 모델은 그대로예요.
+
+## 지우기
+
+Windows 설정 → 앱에서 **VoiceNote**를 제거해요. 내려받은 모델도 지울지 물어봐요.
+
+## 알려진 한계
+
+- 화자 구분은 CPU로만 돌아요. 두 사람이 동시에 말하거나 짧게 끼어든 말은 틀리기 쉬워요. 몇 명인지 알면 '사람 수'를 골라 주세요.
+- 받아쓰기를 NPU로 하면 처음 한 번 준비에 6분쯤 걸려요.
+- Claude로 요약하면 받아 적은 글이 Anthropic API로 보내져요.
